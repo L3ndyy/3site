@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- Header -->
     <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
@@ -61,9 +61,9 @@
                 <div class="flex-1 text-center sm:text-left space-y-2">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                         <h1 id="profile-name" class="text-2xl font-black text-slate-900 dark:text-white">Пользователь</h1>
-                        <span id="profile-role-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-400 self-center sm:self-auto">Пользователь</span>
+                        <span id="profile-role-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-400 self-center sm:self-auto">Пользователь</span>
                     </div>
-                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400">
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
                         <span id="profile-email" class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5"></i> email@example.com</span>
                         <span id="profile-phone" class="flex items-center gap-1.5 font-mono"><i data-lucide="phone" class="w-3.5 h-3.5"></i> +7 (000) 000-00-00</span>
                         <span id="profile-city" class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Москва</span>
@@ -145,7 +145,7 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Город проживания</label>
-                        <select id="settings-city" class="input-field">
+                        <select id="settings-city" class="input-field custom-select cursor-pointer">
                             <option value="Москва">Москва</option>
                             <option value="Санкт-Петербург">Санкт-Петербург</option>
                             <option value="Казань">Казань</option>
@@ -168,7 +168,7 @@
     </main>
 
     <!-- Подвал -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
+    <footer class="bg-white dark:bg-[#0b0f19] border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
         © 2026 БазарПро. Доска объявлений (Вариант 10).
     </footer>
 
@@ -198,7 +198,6 @@
             renderUserFavorites(user);
             renderUserMessages(user);
 
-            // Обработка хэша в URL (#favorites, #ads, etc.)
             const hash = window.location.hash.replace('#', '');
             if (hash) switchTab(hash);
         });
@@ -217,7 +216,7 @@
 
             const roleBadge = document.getElementById('profile-role-badge');
             if (user.role === 'admin') {
-                roleBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400 self-center sm:self-auto';
+                roleBadge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400 self-center sm:self-auto';
                 roleBadge.innerText = 'Администратор';
             }
 

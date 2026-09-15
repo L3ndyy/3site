@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- Header -->
     <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
@@ -50,7 +50,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
         
         <div class="mb-8">
-            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Размещение нового объявления</h1>
+            <h1 class="text-3xl font-black text-slate-900 dark:text-white">Размещение нового объявления</h1>
             <p class="text-sm text-slate-500 mt-1">Заполните поля формы. Справа доступен живой предпросмотр вашей карточки.</p>
         </div>
 
@@ -81,7 +81,7 @@
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
                                 Категория <span class="text-rose-500">*</span>
                             </label>
-                            <select id="ad-category" required class="input-field cursor-pointer" onchange="updateLivePreview()">
+                            <select id="ad-category" required class="input-field custom-select cursor-pointer" onchange="updateLivePreview()">
                                 <option value="">Выберите категорию</option>
                                 <option value="1">Электроника</option>
                                 <option value="2">Транспорт</option>
@@ -98,7 +98,7 @@
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
                                 Состояние
                             </label>
-                            <select id="ad-condition" class="input-field cursor-pointer" onchange="updateLivePreview()">
+                            <select id="ad-condition" class="input-field custom-select cursor-pointer" onchange="updateLivePreview()">
                                 <option value="new">Новое</option>
                                 <option value="excellent" selected>Б/У - Отличное</option>
                                 <option value="good">Б/У - Хорошее</option>
@@ -128,9 +128,9 @@
                     <!-- Быстрый выбор готовых фото для демо -->
                     <div class="flex items-center gap-2 pt-2">
                         <span class="text-xs text-slate-500">Или выберите шаблон фото:</span>
-                        <button type="button" onclick="setPresetPhoto('phone')" class="px-2.5 py-1 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950">Смартфон</button>
-                        <button type="button" onclick="setPresetPhoto('car')" class="px-2.5 py-1 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950">Автомобиль</button>
-                        <button type="button" onclick="setPresetPhoto('home')" class="px-2.5 py-1 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950">Квартира</button>
+                        <button type="button" onclick="setPresetPhoto('phone')" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors">Смартфон</button>
+                        <button type="button" onclick="setPresetPhoto('car')" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors">Автомобиль</button>
+                        <button type="button" onclick="setPresetPhoto('home')" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors">Квартира</button>
                     </div>
 
                     <!-- Превью загруженных фото -->
@@ -168,7 +168,7 @@
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
                                 Город <span class="text-rose-500">*</span>
                             </label>
-                            <select id="ad-city" required class="input-field cursor-pointer" onchange="updateLivePreview()">
+                            <select id="ad-city" required class="input-field custom-select cursor-pointer" onchange="updateLivePreview()">
                                 <option value="Москва">Москва</option>
                                 <option value="Санкт-Петербург">Санкт-Петербург</option>
                                 <option value="Казань">Казань</option>
@@ -194,9 +194,9 @@
                     </div>
 
                     <!-- Чекбокс VIP продвижения -->
-                    <div class="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/60 flex items-center justify-between">
+                    <div class="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-900/60 flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center">
+                            <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-sm">
                                 <i data-lucide="zap" class="w-5 h-5"></i>
                             </div>
                             <div>
@@ -244,7 +244,7 @@
                         </div>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 text-xs text-slate-500">
+                    <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500">
                         💡 Ваше объявление будет сразу доступно в поиске и на главной странице сайта.
                     </div>
                 </div>
@@ -253,7 +253,7 @@
     </main>
 
     <!-- Подвал -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
+    <footer class="bg-white dark:bg-[#0b0f19] border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
         © 2026 БазарПро. Доска объявлений (Вариант 10).
     </footer>
 
@@ -269,7 +269,6 @@
         let uploadedPhotos = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Проверка авторизации
             const user = Auth.getCurrentUser();
             if (!user) {
                 App.showToast('Для размещения объявления войдите в аккаунт', 'warning');

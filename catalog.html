@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог объявлений с фильтрами — БазарПро</title>
+    <title>Каталог объявлений — БазарПро</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- Header -->
     <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
@@ -54,9 +54,9 @@
         
         <!-- Хлебные крошки -->
         <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
-            <a href="index.html" class="hover:text-indigo-600">Главная</a>
+            <a href="index.html" class="hover:text-indigo-600 transition-colors">Главная</a>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            <span class="text-slate-900 dark:text-white font-semibold">Каталог объявлений</span>
+            <span class="text-slate-900 dark:text-white font-bold">Каталог товаров и услуг</span>
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -66,24 +66,24 @@
                 <div class="card-premium p-6 sticky top-28 space-y-6">
                     <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                         <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-600"></i> Фильтры
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-600"></i> Фильтры поиска
                         </h3>
-                        <button onclick="resetFilters()" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">Сбросить</button>
+                        <button onclick="resetFilters()" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">Сбросить</button>
                     </div>
 
                     <!-- Поиск по названию -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Поиск по словам</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Поиск по ключевым словам</label>
                         <div class="relative">
-                            <input type="text" id="filter-query" placeholder="Например: iPhone" class="input-field pl-9 text-sm" oninput="applyFilters()">
+                            <input type="text" id="filter-query" placeholder="Например: iPhone, Ноутбук..." class="input-field pl-9 text-sm" oninput="applyFilters()">
                             <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
                         </div>
                     </div>
 
                     <!-- Категории -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Категория</label>
-                        <select id="filter-category" class="input-field text-sm cursor-pointer" onchange="applyFilters()">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Категория</label>
+                        <select id="filter-category" class="input-field custom-select text-sm cursor-pointer" onchange="applyFilters()">
                             <option value="">Все категории</option>
                             <!-- Опции подгружаются -->
                         </select>
@@ -91,7 +91,7 @@
 
                     <!-- Цена -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Цена, ₽</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Цена, ₽</label>
                         <div class="grid grid-cols-2 gap-2">
                             <input type="text" id="filter-min-price" placeholder="От 0" data-mask="price" class="input-field text-sm" oninput="applyFilters()">
                             <input type="text" id="filter-max-price" placeholder="До 10 000 000" data-mask="price" class="input-field text-sm" oninput="applyFilters()">
@@ -100,9 +100,9 @@
 
                     <!-- Город -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Город</label>
-                        <select id="filter-city" class="input-field text-sm cursor-pointer" onchange="applyFilters()">
-                            <option value="">Все города</option>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Город</label>
+                        <select id="filter-city" class="input-field custom-select text-sm cursor-pointer" onchange="applyFilters()">
+                            <option value="">Все города России</option>
                             <option value="Москва">Москва</option>
                             <option value="Санкт-Петербург">Санкт-Петербург</option>
                             <option value="Казань">Казань</option>
@@ -113,32 +113,32 @@
 
                     <!-- Состояние -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Состояние</label>
-                        <div class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                            <label class="flex items-center gap-2 cursor-pointer">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Состояние</label>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
                                 <input type="radio" name="condition" value="" checked onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
-                                <span>Любое</span>
+                                <span class="font-medium">Любое</span>
                             </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
+                            <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
                                 <input type="radio" name="condition" value="new" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
-                                <span>Новое</span>
+                                <span class="font-medium">Новое</span>
                             </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
+                            <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
                                 <input type="radio" name="condition" value="excellent" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
-                                <span>Отличное (Б/У)</span>
+                                <span class="font-medium">Отличное</span>
                             </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
+                            <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
                                 <input type="radio" name="condition" value="good" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
-                                <span>Хорошее</span>
+                                <span class="font-medium">Хорошее</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Чекбокс VIP -->
                     <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <label class="flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        <label class="flex items-center gap-2.5 cursor-pointer text-sm font-bold text-slate-800 dark:text-slate-200">
                             <input type="checkbox" id="filter-vip" onchange="applyFilters()" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
-                            <span>Только VIP предложения</span>
+                            <span>Только VIP объявления</span>
                         </label>
                     </div>
                 </div>
@@ -150,14 +150,14 @@
                 <!-- Верхняя плашка управления -->
                 <div class="card-premium p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                        Найдено объявлений: <span id="ads-count" class="font-extrabold text-indigo-600 dark:text-indigo-400">0</span>
+                        Найдено предложений: <span id="ads-count" class="font-black text-indigo-600 dark:text-indigo-400">0</span>
                     </div>
 
                     <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                         <!-- Сортировка -->
                         <div class="flex items-center gap-2">
-                            <span class="text-xs text-slate-500 hidden sm:inline">Сортировка:</span>
-                            <select id="sort-select" onchange="applyFilters()" class="bg-slate-100 dark:bg-slate-800 border-none rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer">
+                            <span class="text-xs text-slate-400 font-semibold hidden sm:inline">Сортировка:</span>
+                            <select id="sort-select" onchange="applyFilters()" class="custom-select bg-slate-100 dark:bg-slate-800 border-none rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer">
                                 <option value="newest">Сначала новые</option>
                                 <option value="price_asc">Сначала дешевле</option>
                                 <option value="price_desc">Сначала дороже</option>
@@ -189,14 +189,14 @@
                     </div>
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Объявлений не найдено</h3>
                     <p class="text-sm text-slate-500 max-w-sm mx-auto mb-6">Попробуйте изменить параметры поиска или очистить фильтры</p>
-                    <button onclick="resetFilters()" class="px-5 py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl shadow-md">Сбросить все фильтры</button>
+                    <button onclick="resetFilters()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition-all">Сбросить все фильтры</button>
                 </div>
             </section>
         </div>
     </main>
 
     <!-- Подвал -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
+    <footer class="bg-white dark:bg-[#0b0f19] border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
         © 2026 БазарПро. Доска объявлений (Вариант 10).
     </footer>
 

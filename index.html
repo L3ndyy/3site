@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>БазарПро — Современная доска бесплатных объявлений</title>
+    <title>БазарПро — Доска бесплатных объявлений в России</title>
     <meta name="description" content="Покупайте и продавайте товары, авто, недвижимость и услуги на надежной доске объявлений БазарПро.">
     
     <!-- Tailwind CSS CDN with configuration -->
@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<body class="bg-[#f8fafc] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
     <!-- ================= НАВИГАЦИОННАЯ ШАПКА ================= -->
     <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80 transition-all">
@@ -46,22 +46,22 @@
             
             <!-- Логотип -->
             <a href="index.html" class="flex items-center gap-3 shrink-0 group">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform">
+                <div class="w-11 h-11 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition-all">
                     <i data-lucide="shopping-bag" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <span class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Базар<span class="text-indigo-600 dark:text-indigo-400">Про</span></span>
-                    <span class="hidden sm:block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Доска объявлений</span>
+                    <span class="hidden sm:block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Классифайд №1</span>
                 </div>
             </a>
 
             <!-- Поиск в шапке -->
             <div class="hidden md:flex flex-1 max-w-xl relative">
-                <input type="text" id="global-search-input" placeholder="Поиск среди тысяч объявлений (iPhone, BMW, Квартира...)" 
-                       class="w-full pl-11 pr-24 py-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                <input type="text" id="global-search-input" placeholder="Поиск среди тысяч предложений (iPhone, Авто, Квартира...)" 
+                       class="w-full pl-11 pr-24 py-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-sm focus:outline-none focus:border-indigo-500 transition-all">
                 <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3.5 top-3"></i>
                 <button onclick="window.location.href='catalog.html?q=' + encodeURIComponent(document.getElementById('global-search-input').value)" 
-                        class="absolute right-1.5 top-1.5 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-all">
+                        class="absolute right-1.5 top-1.5 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm transition-all">
                     Найти
                 </button>
             </div>
@@ -83,7 +83,7 @@
                 <div id="header-auth-container"></div>
 
                 <!-- Кнопка Подать объявление -->
-                <a href="create-ad.html" class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover-lift transition-all">
+                <a href="create-ad.html" class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover-lift transition-all">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i>
                     <span>Подать объявление</span>
                 </a>
@@ -92,37 +92,74 @@
     </header>
 
     <!-- ================= HERO БАННЕР ================= -->
-    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-indigo-50/50 via-transparent to-transparent dark:from-indigo-950/20">
+    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-indigo-50/40 via-transparent to-transparent dark:from-indigo-950/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6 animate-fade-in">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Новое поколение объявлений
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200/60 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6 animate-fade-in">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-500"></i> Проверенные продавцы и безопасные сделки
                 </div>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
                     Покупайте и продавайте <br class="hidden sm:inline">
-                    <span class="gradient-text">легко, безопасно и быстро</span>
+                    <span class="gradient-text">быстро и без посредников</span>
                 </h1>
-                <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-                    Тысячи проверенных предложений в вашем городе. Электроника, автомобили, недвижимость и услуги без посредников.
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Тысячи свежих объявлений от реальных людей. Электроника, автомобили, аренда и продажа недвижимости по всей России.
                 </p>
 
-                <!-- Основная форма поиска Hero -->
-                <div class="p-3 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row items-center gap-3 max-w-4xl mx-auto">
-                    <div class="flex-1 w-full flex items-center gap-3 pl-4">
+                <!-- ОСНОВНОЙ ПОИСК HERO С КАСТОМНЫМ ДРОПДАУНОМ ГОРОДОВ (БЕЗ СИСТЕМНОГО СЕЛЕКТА) -->
+                <div class="p-2.5 sm:p-3 bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 flex flex-col md:flex-row items-center gap-2.5 max-w-4xl mx-auto">
+                    
+                    <!-- Поле поиска -->
+                    <div class="flex-1 w-full flex items-center gap-3 pl-4 pr-2">
                         <i data-lucide="search" class="w-5 h-5 text-indigo-500 shrink-0"></i>
-                        <input type="text" id="hero-search-input" placeholder="Что вы ищете? Например: iPhone 15 Pro" class="w-full bg-transparent py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none">
+                        <input type="text" id="hero-search-input" placeholder="Что вы ищете? Например: iPhone 15 Pro, Квартира..." class="w-full bg-transparent py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none">
                     </div>
-                    <div class="w-full md:w-52 border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-800 pt-2 md:pt-0 pl-4 md:pl-4 flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-5 h-5 text-slate-400 shrink-0"></i>
-                        <select id="hero-city-select" class="w-full bg-transparent py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none cursor-pointer">
-                            <option value="" class="dark:bg-slate-900">Все города</option>
-                            <option value="Москва" class="dark:bg-slate-900">Москва</option>
-                            <option value="Санкт-Петербург" class="dark:bg-slate-900">Санкт-Петербург</option>
-                            <option value="Казань" class="dark:bg-slate-900">Казань</option>
-                            <option value="Екатеринбург" class="dark:bg-slate-900">Екатеринбург</option>
-                            <option value="Новосибирск" class="dark:bg-slate-900">Новосибирск</option>
-                        </select>
+
+                    <!-- КАСТОМНЫЙ ДРОПДАУН ВЫБОРА ГОРОДА -->
+                    <div class="w-full md:w-60 border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-800 pt-2 md:pt-0 relative">
+                        <button type="button" id="city-dropdown-trigger" onclick="toggleCityDropdown(event)" class="w-full flex items-center justify-between px-4 py-2.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/70 text-sm font-semibold text-slate-800 dark:text-slate-200 transition-colors">
+                            <span class="flex items-center gap-2 truncate">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+                                <span id="selected-city-label">Все города</span>
+                            </span>
+                            <i data-lucide="chevron-down" id="city-dropdown-arrow" class="w-4 h-4 text-slate-400 shrink-0 transition-transform"></i>
+                        </button>
+
+                        <!-- Всплывающее меню городов -->
+                        <div id="city-dropdown-menu" class="custom-dropdown-menu">
+                            <div class="p-1 space-y-1 max-h-60 overflow-y-auto">
+                                <div onclick="selectCity('', 'Все города')" class="custom-dropdown-item selected">
+                                    <span>Все города</span>
+                                    <i data-lucide="check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+                                </div>
+                                <div onclick="selectCity('Москва', 'Москва')" class="custom-dropdown-item">
+                                    <span>Москва</span>
+                                    <span class="text-xs text-slate-400">Столица</span>
+                                </div>
+                                <div onclick="selectCity('Санкт-Петербург', 'Санкт-Петербург')" class="custom-dropdown-item">
+                                    <span>Санкт-Петербург</span>
+                                    <span class="text-xs text-slate-400">СПб</span>
+                                </div>
+                                <div onclick="selectCity('Казань', 'Казань')" class="custom-dropdown-item">
+                                    <span>Казань</span>
+                                    <span class="text-xs text-slate-400">Татарстан</span>
+                                </div>
+                                <div onclick="selectCity('Екатеринбург', 'Екатеринбург')" class="custom-dropdown-item">
+                                    <span>Екатеринбург</span>
+                                    <span class="text-xs text-slate-400">Урал</span>
+                                </div>
+                                <div onclick="selectCity('Новосибирск', 'Новосибирск')" class="custom-dropdown-item">
+                                    <span>Новосибирск</span>
+                                    <span class="text-xs text-slate-400">Сибирь</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Скрытый инпут для передачи города -->
+                    <input type="hidden" id="hero-selected-city-value" value="">
+
+                    <!-- Кнопка поиска -->
                     <button onclick="handleHeroSearch()" class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-600/30 transition-all shrink-0 flex items-center justify-center gap-2">
                         <span>Найти</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -131,12 +168,12 @@
 
                 <!-- Быстрые теги -->
                 <div class="flex flex-wrap items-center justify-center gap-2 mt-5 text-xs text-slate-500 dark:text-slate-400">
-                    <span class="font-semibold">Популярное:</span>
-                    <a href="catalog.html?q=iPhone" class="px-2.5 py-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-950 transition-colors">iPhone 15</a>
-                    <a href="catalog.html?cat=2" class="px-2.5 py-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-950 transition-colors">BMW</a>
-                    <a href="catalog.html?cat=3" class="px-2.5 py-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-950 transition-colors">Квартиры</a>
-                    <a href="catalog.html?q=PlayStation" class="px-2.5 py-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-950 transition-colors">PlayStation 5</a>
-                    <a href="catalog.html?cat=4" class="px-2.5 py-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-950 transition-colors">Разработка сайтов</a>
+                    <span class="font-semibold">Популярные запросы:</span>
+                    <a href="catalog.html?q=iPhone" class="px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-950/80 hover:text-indigo-600 transition-colors">iPhone 15</a>
+                    <a href="catalog.html?cat=2" class="px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-950/80 hover:text-indigo-600 transition-colors">BMW</a>
+                    <a href="catalog.html?cat=3" class="px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-950/80 hover:text-indigo-600 transition-colors">Квартиры</a>
+                    <a href="catalog.html?q=PlayStation" class="px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-950/80 hover:text-indigo-600 transition-colors">PlayStation 5</a>
+                    <a href="catalog.html?cat=4" class="px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-950/80 hover:text-indigo-600 transition-colors">IT-услуги</a>
                 </div>
             </div>
         </div>
@@ -146,8 +183,8 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="flex items-center justify-between mb-8">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Популярные категории</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Выберите нужный раздел для быстрого поиска</p>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Популярные категории</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Выберите нужный раздел для быстрого перехода</p>
             </div>
             <a href="catalog.html" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
                 Все категории <i data-lucide="chevron-right" class="w-4 h-4"></i>
@@ -163,12 +200,12 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <span class="w-3 h-8 bg-amber-500 rounded-full"></span>
+                <span class="w-2.5 h-8 bg-amber-500 rounded-full"></span>
                 <div>
-                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
                         Горячие предложения <span class="vip-badge text-xs">VIP</span>
                     </h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Топ предложений с быстрой связью и гарантией</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Топовые товары от проверенных продавцов</p>
                 </div>
             </div>
         </div>
@@ -182,12 +219,12 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/80 dark:border-slate-800/80">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Свежие объявления</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Новые публикации за последние 24 часа</p>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Свежие объявления</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Новые публикации за последние 24 часа</p>
             </div>
             
             <div class="flex items-center gap-3">
-                <a href="catalog.html" class="px-5 py-2.5 bg-slate-200/70 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                <a href="catalog.html" class="px-5 py-2.5 bg-slate-200/70 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
                     Смотреть весь каталог
                 </a>
             </div>
@@ -199,31 +236,31 @@
     </section>
 
     <!-- ================= СТАТИСТИКА И ПРЕИМУЩЕСТВА ================= -->
-    <section class="bg-indigo-600 text-white py-16 my-12 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section class="bg-indigo-600 text-white py-16 my-12 relative overflow-hidden rounded-3xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 shadow-2xl">
+        <div class="relative z-10">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                 <div class="p-4">
-                    <div class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">15 000+</div>
-                    <div class="text-indigo-200 text-sm font-medium">Активных объявлений</div>
+                    <div class="text-4xl sm:text-5xl font-black tracking-tight mb-2">15 000+</div>
+                    <div class="text-indigo-200 text-sm font-semibold">Активных объявлений</div>
                 </div>
                 <div class="p-4">
-                    <div class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">99.8%</div>
-                    <div class="text-indigo-200 text-sm font-medium">Успешных сделок</div>
+                    <div class="text-4xl sm:text-5xl font-black tracking-tight mb-2">99.8%</div>
+                    <div class="text-indigo-200 text-sm font-semibold">Успешных сделок</div>
                 </div>
                 <div class="p-4">
-                    <div class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">50+</div>
-                    <div class="text-indigo-200 text-sm font-medium">Городов России</div>
+                    <div class="text-4xl sm:text-5xl font-black tracking-tight mb-2">50+</div>
+                    <div class="text-indigo-200 text-sm font-semibold">Городов России</div>
                 </div>
                 <div class="p-4">
-                    <div class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">24/7</div>
-                    <div class="text-indigo-200 text-sm font-medium">Поддержка и модерация</div>
+                    <div class="text-4xl sm:text-5xl font-black tracking-tight mb-2">24/7</div>
+                    <div class="text-indigo-200 text-sm font-semibold">Поддержка и модерация</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ================= ПОДВАЛ (FOOTER) ================= -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-12">
+    <footer class="bg-white dark:bg-[#0b0f19] border-t border-slate-200 dark:border-slate-800 pt-16 pb-12 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
                 <div>
@@ -237,12 +274,12 @@
                         Надежная площадка объявлений нового поколения. Продавайте быстрее, покупайте безопаснее.
                     </p>
                     <div class="text-xs text-slate-400">
-                        © 2026 БазарПро. Все права защищены. Практическая работа (Вариант 10).
+                        © 2026 БазарПро. Практическая работа (Вариант 10).
                     </div>
                 </div>
 
                 <div>
-                    <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Каталог</h4>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Каталог</h4>
                     <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
                         <li><a href="catalog.html?cat=1" class="hover:text-indigo-600 transition-colors">Электроника</a></li>
                         <li><a href="catalog.html?cat=2" class="hover:text-indigo-600 transition-colors">Транспорт</a></li>
@@ -252,7 +289,7 @@
                 </div>
 
                 <div>
-                    <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Информация</h4>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Информация</h4>
                     <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
                         <li><a href="about.html" class="hover:text-indigo-600 transition-colors">О проекте</a></li>
                         <li><a href="about.html#safety" class="hover:text-indigo-600 transition-colors">Правила безопасности</a></li>
@@ -262,8 +299,8 @@
                 </div>
 
                 <div>
-                    <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Быстрый старт</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Разместите объявление прямо сейчас за пару минут!</p>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Быстрый старт</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Разместите объявление прямо сейчас за 2 минуты!</p>
                     <a href="create-ad.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow-md transition-all">
                         <i data-lucide="plus" class="w-4 h-4"></i> Подать объявление
                     </a>
@@ -285,12 +322,49 @@
     <script src="js/app.js"></script>
 
     <script>
-        // Инициализация главной страницы
         document.addEventListener('DOMContentLoaded', async () => {
             renderCategories();
             renderVipAds();
             renderFreshAds();
+
+            // Закрытие дропдауна при клике вне его
+            document.addEventListener('click', (e) => {
+                const menu = document.getElementById('city-dropdown-menu');
+                const trigger = document.getElementById('city-dropdown-trigger');
+                if (menu && trigger && !trigger.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('open');
+                    document.getElementById('city-dropdown-arrow')?.classList.remove('rotate-180');
+                }
+            });
         });
+
+        function toggleCityDropdown(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('city-dropdown-menu');
+            const arrow = document.getElementById('city-dropdown-arrow');
+            if (menu) {
+                const isOpen = menu.classList.toggle('open');
+                if (arrow) {
+                    if (isOpen) arrow.classList.add('rotate-180');
+                    else arrow.classList.remove('rotate-180');
+                }
+            }
+        }
+
+        function selectCity(cityValue, cityLabel) {
+            document.getElementById('hero-selected-city-value').value = cityValue;
+            document.getElementById('selected-city-label').innerText = cityLabel;
+
+            // Обновляем визуальный класс selected
+            document.querySelectorAll('#city-dropdown-menu .custom-dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Закрываем меню
+            document.getElementById('city-dropdown-menu')?.classList.remove('open');
+            document.getElementById('city-dropdown-arrow')?.classList.remove('rotate-180');
+        }
 
         async function renderCategories() {
             const categories = await DB.getCategories();
@@ -348,7 +422,7 @@
 
         function handleHeroSearch() {
             const q = document.getElementById('hero-search-input').value.trim();
-            const city = document.getElementById('hero-city-select').value;
+            const city = document.getElementById('hero-selected-city-value').value;
             let url = 'catalog.html?';
             if (q) url += `q=${encodeURIComponent(q)}&`;
             if (city) url += `city=${encodeURIComponent(city)}&`;

@@ -1,8 +1,8 @@
 /* ===================================================================
-   ГЛАВНЫЙ ФАЙЛ СТИЛЕЙ: БАЗАРПРО
+   ГЛАВНЫЙ ФАЙЛ СТИЛЕЙ: БАЗАРПРО (PRO-GRADE DESIGN SYSTEM)
    =================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
     --primary: #4f46e5;
@@ -12,34 +12,51 @@
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
+    
     --bg-main: #f8fafc;
+    --bg-surface: #ffffff;
     --bg-card: #ffffff;
+    --bg-elevated: #ffffff;
     --text-main: #0f172a;
     --text-muted: #64748b;
+    --text-subtle: #94a3b8;
     --border-color: #e2e8f0;
+    --border-subtle: #f1f5f9;
+    
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 24px;
-    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-    --shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.1);
+    --radius-xl: 20px;
+    --radius-2xl: 28px;
+    
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-soft: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    --shadow-hover: 0 16px 32px -8px rgba(15, 23, 42, 0.1);
+    --shadow-glow: 0 0 24px -4px rgba(79, 70, 229, 0.25);
 }
 
 .dark {
-    --bg-main: #0b0f19;
-    --bg-card: #131b2e;
+    --bg-main: #090d16;
+    --bg-surface: #0f172a;
+    --bg-card: #111827;
+    --bg-elevated: #1e293b;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
+    --text-subtle: #64748b;
     --border-color: #1e293b;
+    --border-subtle: #192231;
     --primary-light: #1e1b4b;
-    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
+    
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 28px -4px rgba(99, 102, 241, 0.3);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -51,13 +68,60 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================================================
+   ПОЛНЫЙ СБРОС И КАСТОМИЗАЦИЯ СИСТЕМНЫХ SELECT И INPUT ЭЛЕМЕНТОВ
+   (Убирает любые синие системные рамки Windows и белые селекты)
+   =================================================================== */
+
+select, input, textarea, button {
+    outline: none !important;
+    font-family: inherit;
+}
+
+select:focus, input:focus, textarea:focus, button:focus {
+    outline: none !important;
+}
+
+/* Стилизация нативных select элементов под премиальный дизайн */
+select.custom-select, .input-field select, select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.2' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 1rem !important;
+    padding-right: 2.25rem !important;
+    cursor: pointer;
+}
+
+.dark select.custom-select, .dark select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.2' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") !important;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+}
+
+select option {
+    background-color: #ffffff;
+    color: #0f172a;
+    padding: 8px;
+}
+
+.dark select option {
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 8px;
 }
 
 /* Стилизация скроллбара */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -66,7 +130,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 4px;
+    border-radius: 9999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
@@ -77,28 +141,16 @@ body {
     background: #94a3b8;
 }
 
-/* Glassmorphism */
-.glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+/* ===================================================================
+   ДИЗАЙН КАРТОЧЕК И UI КОМПОНЕНТОВ
+   =================================================================== */
 
-.dark .glass {
-    background: rgba(19, 27, 46, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Карточки */
 .card-premium {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-soft);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-premium:hover {
@@ -106,52 +158,78 @@ body {
     box-shadow: var(--shadow-hover);
 }
 
-.dark .card-premium:hover {
-    border-color: #334155;
+.dark .card-premium {
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: linear-gradient(180deg, rgba(26, 34, 53, 0.6) 0%, rgba(17, 24, 39, 0.9) 100%);
 }
 
-/* Градиентный текст */
+.dark .card-premium:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(99, 102, 241, 0.15);
+}
+
+/* Glassmorphism */
+.glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass {
+    background: rgba(9, 13, 22, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Градиентные акценты */
 .gradient-text {
-    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #2563eb 50%, #06b6d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.gradient-vip {
-    background: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+.dark .gradient-text {
+    background: linear-gradient(135deg, #818cf8 0%, #60a5fa 50%, #38bdf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 /* VIP бейдж */
 .vip-badge {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
     color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 2px 8px;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
     border-radius: 9999px;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
 }
 
-/* Инпут стили */
+/* Инпуты */
 .input-field {
     width: 100%;
-    padding: 0.65rem 1rem;
-    background-color: var(--bg-card);
+    padding: 0.7rem 1.1rem;
+    background-color: var(--bg-surface);
     border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
     color: var(--text-main);
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 0.925rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .input-field {
+    background-color: #0b1120;
+    border-color: #1e293b;
+    color: #f8fafc;
 }
 
 .input-field:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
 }
 
 .input-field.error {
@@ -163,7 +241,111 @@ body {
     border-color: var(--success) !important;
 }
 
-/* Тосты */
+/* ===================================================================
+   КАСТОМНЫЙ ВЫБОР ГОРОДА (DROPDOWN POPOVER)
+   =================================================================== */
+
+.custom-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0.65rem 1rem;
+    background-color: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.dark .custom-dropdown-btn {
+    background-color: #0b1120;
+    border-color: #1e293b;
+}
+
+.custom-dropdown-btn:hover {
+    border-color: #94a3b8;
+}
+
+.dark .custom-dropdown-btn:hover {
+    border-color: #475569;
+}
+
+.custom-dropdown-btn.active {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    z-index: 60;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .custom-dropdown-menu {
+    background-color: #0f172a;
+    border-color: #1e293b;
+    box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.7);
+}
+
+.custom-dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.custom-dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.custom-dropdown-item:hover {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.dark .custom-dropdown-item:hover {
+    background-color: #1e1b4b;
+    color: #a5b4fc;
+}
+
+.custom-dropdown-item.selected {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.dark .custom-dropdown-item.selected {
+    background-color: #1e1b4b;
+    color: #818cf8;
+}
+
+/* ===================================================================
+   ТОСТЫ И МОДАЛКИ
+   =================================================================== */
+
 #toast-container {
     position: fixed;
     bottom: 24px;
@@ -184,11 +366,17 @@ body {
     background: var(--bg-card);
     color: var(--text-main);
     border-radius: var(--radius-md);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+    border: 1px solid var(--border-color);
     border-left: 4px solid var(--primary);
     min-width: 280px;
     max-width: 420px;
     animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .toast {
+    background: #0f172a;
+    border-color: #1e293b;
 }
 
 .toast.success { border-left-color: var(--success); }
@@ -200,8 +388,9 @@ body {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(4px);
+    background: rgba(11, 15, 25, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 999;
     display: flex;
     align-items: center;
@@ -220,14 +409,19 @@ body {
 .modal-content {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-2xl);
     width: 100%;
-    max-width: 540px;
+    max-width: 560px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    transform: scale(0.95);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
+    transform: scale(0.96);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .modal-content {
+    background: #0f172a;
+    border-color: #1e293b;
 }
 
 .modal-overlay.active .modal-content {
@@ -239,9 +433,9 @@ body {
     height: 4px;
     width: 100%;
     background-color: var(--border-color);
-    border-radius: 2px;
+    border-radius: 9999px;
     overflow: hidden;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .strength-bar {
