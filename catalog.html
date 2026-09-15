@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог объявлений с фильтрами — БазарПро</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </div>
+                <span class="text-2xl font-black text-slate-900 dark:text-white">Базар<span class="text-indigo-600 dark:text-indigo-400">Про</span></span>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <button onclick="App.toggleTheme()" class="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="sun-moon" class="w-5 h-5"></i>
+                </button>
+                <div id="header-auth-container"></div>
+                <a href="create-ad.html" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Подать объявление
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        
+        <!-- Хлебные крошки -->
+        <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+            <a href="index.html" class="hover:text-indigo-600">Главная</a>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            <span class="text-slate-900 dark:text-white font-semibold">Каталог объявлений</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Боковая панель фильтров (Sidebar) -->
+            <aside class="lg:col-span-1">
+                <div class="card-premium p-6 sticky top-28 space-y-6">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-600"></i> Фильтры
+                        </h3>
+                        <button onclick="resetFilters()" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">Сбросить</button>
+                    </div>
+
+                    <!-- Поиск по названию -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Поиск по словам</label>
+                        <div class="relative">
+                            <input type="text" id="filter-query" placeholder="Например: iPhone" class="input-field pl-9 text-sm" oninput="applyFilters()">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+                        </div>
+                    </div>
+
+                    <!-- Категории -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Категория</label>
+                        <select id="filter-category" class="input-field text-sm cursor-pointer" onchange="applyFilters()">
+                            <option value="">Все категории</option>
+                            <!-- Опции подгружаются -->
+                        </select>
+                    </div>
+
+                    <!-- Цена -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Цена, ₽</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="text" id="filter-min-price" placeholder="От 0" data-mask="price" class="input-field text-sm" oninput="applyFilters()">
+                            <input type="text" id="filter-max-price" placeholder="До 10 000 000" data-mask="price" class="input-field text-sm" oninput="applyFilters()">
+                        </div>
+                    </div>
+
+                    <!-- Город -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Город</label>
+                        <select id="filter-city" class="input-field text-sm cursor-pointer" onchange="applyFilters()">
+                            <option value="">Все города</option>
+                            <option value="Москва">Москва</option>
+                            <option value="Санкт-Петербург">Санкт-Петербург</option>
+                            <option value="Казань">Казань</option>
+                            <option value="Екатеринбург">Екатеринбург</option>
+                            <option value="Новосибирск">Новосибирск</option>
+                        </select>
+                    </div>
+
+                    <!-- Состояние -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Состояние</label>
+                        <div class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="condition" value="" checked onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
+                                <span>Любое</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="condition" value="new" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
+                                <span>Новое</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="condition" value="excellent" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
+                                <span>Отличное (Б/У)</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="condition" value="good" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500">
+                                <span>Хорошее</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Чекбокс VIP -->
+                    <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <label class="flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            <input type="checkbox" id="filter-vip" onchange="applyFilters()" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                            <span>Только VIP предложения</span>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Основной список каталога -->
+            <section class="lg:col-span-3">
+                
+                <!-- Верхняя плашка управления -->
+                <div class="card-premium p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                        Найдено объявлений: <span id="ads-count" class="font-extrabold text-indigo-600 dark:text-indigo-400">0</span>
+                    </div>
+
+                    <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                        <!-- Сортировка -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-500 hidden sm:inline">Сортировка:</span>
+                            <select id="sort-select" onchange="applyFilters()" class="bg-slate-100 dark:bg-slate-800 border-none rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer">
+                                <option value="newest">Сначала новые</option>
+                                <option value="price_asc">Сначала дешевле</option>
+                                <option value="price_desc">Сначала дороже</option>
+                                <option value="views">По популярности</option>
+                            </select>
+                        </div>
+
+                        <!-- Переключатель вида (Сетка / Список) -->
+                        <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                            <button id="view-grid-btn" onclick="setViewMode('grid')" class="p-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-white" title="Сетка">
+                                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                            </button>
+                            <button id="view-list-btn" onclick="setViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white" title="Список">
+                                <i data-lucide="list" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Контейнер карточек -->
+                <div id="catalog-ads-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Карточки рендерятся через JS -->
+                </div>
+
+                <!-- Сообщение если ничего не найдено -->
+                <div id="empty-state" class="card-premium p-12 text-center hidden">
+                    <div class="w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 mx-auto flex items-center justify-center mb-4">
+                        <i data-lucide="search-x" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Объявлений не найдено</h3>
+                    <p class="text-sm text-slate-500 max-w-sm mx-auto mb-6">Попробуйте изменить параметры поиска или очистить фильтры</p>
+                    <button onclick="resetFilters()" class="px-5 py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl shadow-md">Сбросить все фильтры</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
+        © 2026 БазарПро. Доска объявлений (Вариант 10).
+    </footer>
+
+    <!-- Модальное окно быстрого просмотра -->
+    <div id="quick-view-modal" class="modal-overlay"></div>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/masks.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ads.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        let currentViewMode = 'grid';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCategoriesDropdown();
+            parseUrlParams();
+            applyFilters();
+        });
+
+        async function loadCategoriesDropdown() {
+            const categories = await DB.getCategories();
+            const select = document.getElementById('filter-category');
+            if (select) {
+                categories.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.id;
+                    opt.textContent = cat.name;
+                    select.appendChild(opt);
+                });
+            }
+        }
+
+        function parseUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            const cat = params.get('cat');
+            const city = params.get('city');
+
+            if (q) document.getElementById('filter-query').value = q;
+            if (cat) document.getElementById('filter-category').value = cat;
+            if (city) document.getElementById('filter-city').value = city;
+        }
+
+        async function applyFilters() {
+            const query = document.getElementById('filter-query').value.trim();
+            const categoryId = document.getElementById('filter-category').value;
+            const minPrice = Masks.cleanPrice(document.getElementById('filter-min-price').value);
+            const maxPrice = Masks.cleanPrice(document.getElementById('filter-max-price').value);
+            const city = document.getElementById('filter-city').value;
+            const vipOnly = document.getElementById('filter-vip').checked;
+            const sortBy = document.getElementById('sort-select').value;
+            
+            const conditionEl = document.querySelector('input[name="condition"]:checked');
+            const condition = conditionEl ? conditionEl.value : '';
+
+            const ads = await DB.getAds({
+                query,
+                categoryId,
+                minPrice: minPrice || null,
+                maxPrice: maxPrice || null,
+                city,
+                condition,
+                vipOnly,
+                sortBy,
+                status: 'active'
+            });
+
+            const countEl = document.getElementById('ads-count');
+            const container = document.getElementById('catalog-ads-container');
+            const emptyEl = document.getElementById('empty-state');
+            const currentUser = Auth.getCurrentUser();
+
+            if (countEl) countEl.innerText = ads.length;
+
+            if (ads.length === 0) {
+                container.innerHTML = '';
+                emptyEl.classList.remove('hidden');
+            } else {
+                emptyEl.classList.add('hidden');
+                const isList = currentViewMode === 'list';
+                container.className = isList ? 'space-y-4' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+                container.innerHTML = ads.map(ad => Ads.renderCard(ad, currentUser ? currentUser.id : null, isList)).join('');
+            }
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const gridBtn = document.getElementById('view-grid-btn');
+            const listBtn = document.getElementById('view-list-btn');
+
+            if (mode === 'grid') {
+                gridBtn.className = 'p-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-white';
+                listBtn.className = 'p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white';
+            } else {
+                listBtn.className = 'p-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-white';
+                gridBtn.className = 'p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white';
+            }
+            applyFilters();
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-query').value = '';
+            document.getElementById('filter-category').value = '';
+            document.getElementById('filter-min-price').value = '';
+            document.getElementById('filter-max-price').value = '';
+            document.getElementById('filter-city').value = '';
+            document.getElementById('filter-vip').checked = false;
+            const firstRadio = document.querySelector('input[name="condition"][value=""]');
+            if (firstRadio) firstRadio.checked = true;
+            applyFilters();
+        }
+    </script>
+</body>
+</html>

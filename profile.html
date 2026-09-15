@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — БазарПро</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </div>
+                <span class="text-2xl font-black text-slate-900 dark:text-white">Базар<span class="text-indigo-600 dark:text-indigo-400">Про</span></span>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <button onclick="App.toggleTheme()" class="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="sun-moon" class="w-5 h-5"></i>
+                </button>
+                <div id="header-auth-container"></div>
+                <a href="create-ad.html" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Подать объявление
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        
+        <!-- Верхняя карточка профиля -->
+        <div class="card-premium p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                <div class="relative group">
+                    <img id="profile-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" class="w-24 h-24 rounded-3xl object-cover border-2 border-indigo-500 shadow-md">
+                </div>
+                <div class="flex-1 text-center sm:text-left space-y-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <h1 id="profile-name" class="text-2xl font-black text-slate-900 dark:text-white">Пользователь</h1>
+                        <span id="profile-role-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-400 self-center sm:self-auto">Пользователь</span>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400">
+                        <span id="profile-email" class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5"></i> email@example.com</span>
+                        <span id="profile-phone" class="flex items-center gap-1.5 font-mono"><i data-lucide="phone" class="w-3.5 h-3.5"></i> +7 (000) 000-00-00</span>
+                        <span id="profile-city" class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Москва</span>
+                    </div>
+                </div>
+
+                <!-- Быстрые действия -->
+                <div class="flex items-center gap-2">
+                    <button onclick="switchTab('settings')" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition-colors">
+                        Настройки
+                    </button>
+                    <button onclick="Auth.logout()" class="px-4 py-2 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 rounded-xl text-xs font-bold transition-colors">
+                        Выйти
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладки навигации кабинета -->
+        <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 mb-8 overflow-x-auto pb-2">
+            <button id="tab-btn-ads" onclick="switchTab('ads')" class="tab-btn px-5 py-3 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 flex items-center gap-2 shrink-0">
+                <i data-lucide="layers" class="w-4 h-4"></i> Мои объявления
+            </button>
+            <button id="tab-btn-favorites" onclick="switchTab('favorites')" class="tab-btn px-5 py-3 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="heart" class="w-4 h-4"></i> Избранное
+            </button>
+            <button id="tab-btn-messages" onclick="switchTab('messages')" class="tab-btn px-5 py-3 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="message-square" class="w-4 h-4"></i> Сообщения
+            </button>
+            <button id="tab-btn-settings" onclick="switchTab('settings')" class="tab-btn px-5 py-3 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="settings" class="w-4 h-4"></i> Настройки профиля
+            </button>
+        </div>
+
+        <!-- ВКЛАДКА 1: Мои объявления -->
+        <div id="tab-content-ads" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Список ваших объявлений</h3>
+                <a href="create-ad.html" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">
+                    + Разместить новое
+                </a>
+            </div>
+
+            <div id="user-ads-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Объявления пользователя -->
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 2: Избранное -->
+        <div id="tab-content-favorites" class="tab-content hidden">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Сохраненные объявления</h3>
+            <div id="user-favorites-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Избранные карточки -->
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 3: Сообщения -->
+        <div id="tab-content-messages" class="tab-content hidden">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Ваши диалоги</h3>
+            <div id="user-messages-list" class="space-y-4 max-w-2xl">
+                <!-- Сообщения -->
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 4: Настройки профиля -->
+        <div id="tab-content-settings" class="tab-content hidden">
+            <div class="card-premium p-6 sm:p-8 max-w-2xl">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Редактирование профиля</h3>
+                <form id="profile-settings-form" class="space-y-5" onsubmit="handleSaveSettings(event)">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">ФИО / Имя продавца</label>
+                        <input type="text" id="settings-name" required class="input-field">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Номер телефона (с маской ввода)</label>
+                        <input type="tel" id="settings-phone" data-mask="phone" required class="input-field font-mono">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Город проживания</label>
+                        <select id="settings-city" class="input-field">
+                            <option value="Москва">Москва</option>
+                            <option value="Санкт-Петербург">Санкт-Петербург</option>
+                            <option value="Казань">Казань</option>
+                            <option value="Екатеринбург">Екатеринбург</option>
+                            <option value="Новосибирск">Новосибирск</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">URL Аватарки</label>
+                        <input type="url" id="settings-avatar" class="input-field" placeholder="https://images.unsplash.com/...">
+                    </div>
+
+                    <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-md transition-all">
+                        Сохранить изменения
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-16 text-center text-xs text-slate-400">
+        © 2026 БазарПро. Доска объявлений (Вариант 10).
+    </footer>
+
+    <!-- Модальные окна -->
+    <div id="quick-view-modal" class="modal-overlay"></div>
+    <div id="chat-modal" class="modal-overlay"></div>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/masks.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ads.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = Auth.getCurrentUser();
+            if (!user) {
+                App.showToast('Пожалуйста, авторизуйтесь для доступа в личный кабинет', 'warning');
+                setTimeout(() => window.location.href = 'auth.html', 1000);
+                return;
+            }
+
+            renderUserProfile(user);
+            renderUserAds(user);
+            renderUserFavorites(user);
+            renderUserMessages(user);
+
+            // Обработка хэша в URL (#favorites, #ads, etc.)
+            const hash = window.location.hash.replace('#', '');
+            if (hash) switchTab(hash);
+        });
+
+        function renderUserProfile(user) {
+            document.getElementById('profile-name').innerText = user.fullName;
+            document.getElementById('profile-email').innerHTML = `<i data-lucide="mail" class="w-3.5 h-3.5"></i> ${user.email}`;
+            document.getElementById('profile-phone').innerHTML = `<i data-lucide="phone" class="w-3.5 h-3.5"></i> ${user.phone || '+7 (999) 000-00-00'}`;
+            document.getElementById('profile-city').innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${user.city || 'Москва'}`;
+            if (user.avatarUrl) document.getElementById('profile-avatar').src = user.avatarUrl;
+
+            document.getElementById('settings-name').value = user.fullName;
+            document.getElementById('settings-phone').value = user.phone || '';
+            document.getElementById('settings-city').value = user.city || 'Москва';
+            document.getElementById('settings-avatar').value = user.avatarUrl || '';
+
+            const roleBadge = document.getElementById('profile-role-badge');
+            if (user.role === 'admin') {
+                roleBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400 self-center sm:self-auto';
+                roleBadge.innerText = 'Администратор';
+            }
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function renderUserAds(user) {
+            const ads = await DB.getAds({ userId: user.id });
+            const container = document.getElementById('user-ads-grid');
+            if (!container) return;
+
+            if (ads.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 card-premium p-10 text-center">
+                        <i data-lucide="layers" class="w-10 h-10 text-slate-400 mx-auto mb-3 opacity-50"></i>
+                        <h4 class="font-bold text-base mb-1">У вас пока нет объявлений</h4>
+                        <p class="text-xs text-slate-500 mb-4">Разместите свой первый товар на продажу прямо сейчас</p>
+                        <a href="create-ad.html" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Подать объявление</a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = ads.map(ad => `
+                    <div class="card-premium overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-100 dark:bg-slate-800">
+                                <img src="${(ad.photos && ad.photos[0]) || ''}" class="w-full h-full object-cover">
+                                ${ad.isVip ? '<span class="vip-badge absolute top-3 left-3">VIP</span>' : ''}
+                            </div>
+                            <div class="p-4">
+                                <span class="text-xs text-indigo-600 font-bold">${ad.categoryName || 'Категория'}</span>
+                                <h4 class="font-bold text-base text-slate-900 dark:text-white line-clamp-1 mt-1">${ad.title}</h4>
+                                <div class="text-lg font-black text-slate-900 dark:text-white mt-1">${Masks.formatPrice(ad.price, ad.priceNegotiable)}</div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 mt-2">
+                            <span class="text-xs text-slate-400">👁 ${ad.viewsCount || 0} просмотров</span>
+                            <div class="flex items-center gap-1">
+                                <a href="ad-details.html?id=${ad.id}" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg" title="Просмотр">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </a>
+                                <button onclick="deleteMyAd('${ad.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-950 text-rose-500 rounded-lg" title="Удалить">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function renderUserFavorites(user) {
+            const favIds = DB.getFavorites(user.id);
+            const container = document.getElementById('user-favorites-grid');
+            if (!container) return;
+
+            if (favIds.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 card-premium p-10 text-center">
+                        <i data-lucide="heart" class="w-10 h-10 text-slate-400 mx-auto mb-3 opacity-50"></i>
+                        <h4 class="font-bold text-base mb-1">Список избранного пуст</h4>
+                        <p class="text-xs text-slate-500 mb-4">Нажимайте сердечко на понравившихся карточках в каталоге</p>
+                        <a href="catalog.html" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Перейти в каталог</a>
+                    </div>
+                `;
+            } else {
+                const allAds = await DB.getAds();
+                const favAds = allAds.filter(a => favIds.includes(a.id));
+                container.innerHTML = favAds.map(ad => Ads.renderCard(ad, user.id)).join('');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderUserMessages(user) {
+            const messages = DB.getMessages(null, user.id);
+            const container = document.getElementById('user-messages-list');
+            if (!container) return;
+
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="card-premium p-10 text-center">
+                        <i data-lucide="message-square" class="w-10 h-10 text-slate-400 mx-auto mb-3 opacity-50"></i>
+                        <h4 class="font-bold text-base mb-1">Нет активных диалогов</h4>
+                        <p class="text-xs text-slate-500">Здесь будут отображаться ваши переписки с продавцами и покупателями</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = messages.map(m => `
+                    <div class="card-premium p-4 flex items-center justify-between hover:border-indigo-500 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center font-bold">
+                                💬
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900 dark:text-white">${m.text}</div>
+                                <div class="text-xs text-slate-400">${new Date(m.createdAt).toLocaleString()}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function deleteMyAd(adId) {
+            if (!confirm('Вы точно хотите удалить это объявление?')) return;
+            await DB.deleteAd(adId);
+            App.showToast('Объявление успешно удалено', 'info');
+            const user = Auth.getCurrentUser();
+            renderUserAds(user);
+        }
+
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn px-5 py-3 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 shrink-0';
+            });
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+            const targetBtn = document.getElementById(`tab-btn-${tabKey}`);
+            const targetContent = document.getElementById(`tab-content-${tabKey}`);
+
+            if (targetBtn && targetContent) {
+                targetBtn.className = 'tab-btn px-5 py-3 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 flex items-center gap-2 shrink-0';
+                targetContent.classList.remove('hidden');
+                window.location.hash = tabKey;
+            }
+        }
+
+        function handleSaveSettings(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('settings-name').value.trim();
+            const phone = document.getElementById('settings-phone').value.trim();
+            const city = document.getElementById('settings-city').value;
+            const avatarUrl = document.getElementById('settings-avatar').value.trim();
+
+            const res = Auth.updateProfile({ fullName, phone, city, avatarUrl });
+            if (res.success) {
+                App.showToast('Настройки профиля сохранены', 'success');
+                renderUserProfile(res.user);
+            } else {
+                App.showToast(res.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

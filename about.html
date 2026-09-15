@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О сервисе и Правила безопасности — БазарПро</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </div>
+                <span class="text-2xl font-black text-slate-900 dark:text-white">Базар<span class="text-indigo-600 dark:text-indigo-400">Про</span></span>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <button onclick="App.toggleTheme()" class="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="sun-moon" class="w-5 h-5"></i>
+                </button>
+                <div id="header-auth-container"></div>
+                <a href="create-ad.html" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Подать объявление
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full space-y-12">
+        
+        <!-- О сервисе -->
+        <section class="card-premium p-8 sm:p-12 space-y-6">
+            <span class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase">О платформе</span>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">БазарПро — умная доска бесплатных объявлений</h1>
+            <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                БазарПро — это современный сервис для выгодных покупок и быстрых продаж. Платформа спроектирована с акцентом на высокую производительность, адаптивность под любые экраны смартфонов и планшетов, защищенность персональных данных и мгновенную синхронизацию с облачной базой данных.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-4">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-2">Безопасность</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Автоматическая маскировка телефонных номеров, валидация полей и аудит подозрительной активности.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-2">Мгновенный отклик</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Живой предпросмотр карточек, фильтрация объявлений на лету без перезагрузки страниц.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-4">
+                        <i data-lucide="cloud" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-2">Облачная база</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Полная совместимость с базой данных Supabase PostgreSQL и готовый деплой на платформе Vercel.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Правила безопасности -->
+        <section id="safety" class="card-premium p-8 sm:p-12 space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center">
+                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white">Правила безопасности для покупателей и продавцов</h2>
+                    <p class="text-xs text-slate-400">Соблюдайте простые правила, чтобы защитить свои средства</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-sm text-slate-700 dark:text-slate-300 pt-4">
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                    <span class="font-bold text-indigo-600">01.</span>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white block mb-0.5">Встречайтесь в безопасных и людных местах</strong>
+                        Для передачи товара и расчета выбирайте торговые центры, вестибюли метро или людные улицы в светлое время суток.
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                    <span class="font-bold text-indigo-600">02.</span>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white block mb-0.5">Не отправляйте предоплату незнакомым лицам</strong>
+                        Оплачивайте товар только после того, как лично осмотрели его и убедились в полной работоспособности и соответствии описанию.
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+                    <span class="font-bold text-indigo-600">03.</span>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white block mb-0.5">Не переходите по сторонним ссылкам в мессенджерах</strong>
+                        Общайтесь во встроенном чате сервиса и никогда не вводите данные банковских карт на подозрительных сайтах.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-400">
+        © 2026 БазарПро. Доска объявлений (Вариант 10).
+    </footer>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/masks.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ads.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
