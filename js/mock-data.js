@@ -23,7 +23,7 @@ const INITIAL_USERS = [
         role: 'admin',
         rating: 5.0,
         reviewsCount: 48,
-        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+        avatarUrl: 'images/avatar_admin.jpg',
         city: 'Москва',
         createdAt: '2024-01-10T10:00:00.000Z'
     },
@@ -36,7 +36,7 @@ const INITIAL_USERS = [
         role: 'user',
         rating: 4.9,
         reviewsCount: 22,
-        avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        avatarUrl: 'images/avatar_alex.jpg',
         city: 'Москва',
         createdAt: '2024-02-15T12:30:00.000Z'
     },
@@ -49,7 +49,7 @@ const INITIAL_USERS = [
         role: 'user',
         rating: 5.0,
         reviewsCount: 31,
-        avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+        avatarUrl: 'images/avatar_elena.jpg',
         city: 'Санкт-Петербург',
         createdAt: '2024-03-01T09:15:00.000Z'
     }
@@ -61,7 +61,7 @@ const INITIAL_ADS = [
         userId: 'u_alex_02',
         userName: 'Александр Смирнов',
         userPhone: '+7 (916) 123-45-67',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_alex.jpg',
         userRating: 4.9,
         categoryId: 1,
         categoryName: 'Электроника',
@@ -74,9 +74,8 @@ const INITIAL_ADS = [
         city: 'Москва',
         address: 'ул. Тверская, 12 (м. Охотный Ряд)',
         photos: [
-            'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1695048065057-de12479e0066?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=1000&q=80'
+            'images/iphone.jpg',
+            'images/iphone_back.jpg'
         ],
         status: 'active',
         viewsCount: 428,
@@ -88,7 +87,7 @@ const INITIAL_ADS = [
         userId: 'u_alex_02',
         userName: 'Александр Смирнов',
         userPhone: '+7 (916) 123-45-67',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_alex.jpg',
         userRating: 4.9,
         categoryId: 2,
         categoryName: 'Транспорт',
@@ -101,9 +100,8 @@ const INITIAL_ADS = [
         city: 'Санкт-Петербург',
         address: 'Невский проспект, 140',
         photos: [
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1000&q=80'
+            'images/bmw.jpg',
+            'images/bmw_interior.jpg'
         ],
         status: 'active',
         viewsCount: 1120,
@@ -115,7 +113,7 @@ const INITIAL_ADS = [
         userId: 'u_elena_03',
         userName: 'Елена Васильева',
         userPhone: '+7 (925) 765-43-21',
-        userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_elena.jpg',
         userRating: 5.0,
         categoryId: 3,
         categoryName: 'Недвижимость',
@@ -128,9 +126,8 @@ const INITIAL_ADS = [
         city: 'Москва',
         address: 'Ленинградский проспект, 36 (м. Динамо)',
         photos: [
-            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1000&q=80'
+            'images/apartment.jpg',
+            'images/apartment_kitchen.jpg'
         ],
         status: 'active',
         viewsCount: 1540,
@@ -142,7 +139,7 @@ const INITIAL_ADS = [
         userId: 'u_alex_02',
         userName: 'Александр Смирнов',
         userPhone: '+7 (916) 123-45-67',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_alex.jpg',
         userRating: 4.9,
         categoryId: 1,
         categoryName: 'Электроника',
@@ -155,8 +152,8 @@ const INITIAL_ADS = [
         city: 'Казань',
         address: 'ул. Баумана, 25',
         photos: [
-            'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1000&q=80'
+            'images/ps5.jpg',
+            'images/ps5_gamepad.jpg'
         ],
         status: 'active',
         viewsCount: 512,
@@ -168,7 +165,7 @@ const INITIAL_ADS = [
         userId: 'u_elena_03',
         userName: 'Елена Васильева',
         userPhone: '+7 (925) 765-43-21',
-        userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_elena.jpg',
         userRating: 5.0,
         categoryId: 6,
         categoryName: 'Для дома и дачи',
@@ -181,8 +178,7 @@ const INITIAL_ADS = [
         city: 'Екатеринбург',
         address: 'ул. Ленина, 50',
         photos: [
-            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1000&q=80'
+            'images/sofa.jpg'
         ],
         status: 'active',
         viewsCount: 230,
@@ -194,7 +190,7 @@ const INITIAL_ADS = [
         userId: 'u_alex_02',
         userName: 'Александр Смирнов',
         userPhone: '+7 (916) 123-45-67',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_alex.jpg',
         userRating: 4.9,
         categoryId: 7,
         categoryName: 'Хобби и спорт',
@@ -207,8 +203,7 @@ const INITIAL_ADS = [
         city: 'Новосибирск',
         address: 'Красный проспект, 82',
         photos: [
-            'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=1000&q=80'
+            'images/bike.jpg'
         ],
         status: 'active',
         viewsCount: 310,
@@ -220,7 +215,7 @@ const INITIAL_ADS = [
         userId: 'u_elena_03',
         userName: 'Елена Васильева',
         userPhone: '+7 (925) 765-43-21',
-        userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_elena.jpg',
         userRating: 5.0,
         categoryId: 4,
         categoryName: 'Услуги',
@@ -233,8 +228,7 @@ const INITIAL_ADS = [
         city: 'Москва',
         address: 'Удаленно / Офис',
         photos: [
-            'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1000&q=80'
+            'images/webdev.jpg'
         ],
         status: 'active',
         viewsCount: 780,
@@ -246,7 +240,7 @@ const INITIAL_ADS = [
         userId: 'u_alex_02',
         userName: 'Александр Смирнов',
         userPhone: '+7 (916) 123-45-67',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        userAvatar: 'images/avatar_alex.jpg',
         userRating: 4.9,
         categoryId: 5,
         categoryName: 'Одежда и обувь',
@@ -259,8 +253,7 @@ const INITIAL_ADS = [
         city: 'Москва',
         address: 'Кутузовский проспект, 18',
         photos: [
-            'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80',
-            'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=1000&q=80'
+            'images/jacket.jpg'
         ],
         status: 'active',
         viewsCount: 195,

@@ -29,14 +29,16 @@ class DataService {
     }
 
     initLocalStorage() {
-        if (!localStorage.getItem('bazarpro_ads')) {
+        const storedAds = localStorage.getItem('bazarpro_ads');
+        if (!storedAds || storedAds.includes('unsplash.com')) {
             localStorage.setItem('bazarpro_ads', JSON.stringify(INITIAL_ADS));
+        }
+        const storedUsers = localStorage.getItem('bazarpro_users');
+        if (!storedUsers || storedUsers.includes('unsplash.com')) {
+            localStorage.setItem('bazarpro_users', JSON.stringify(INITIAL_USERS));
         }
         if (!localStorage.getItem('bazarpro_categories')) {
             localStorage.setItem('bazarpro_categories', JSON.stringify(INITIAL_CATEGORIES));
-        }
-        if (!localStorage.getItem('bazarpro_users')) {
-            localStorage.setItem('bazarpro_users', JSON.stringify(INITIAL_USERS));
         }
         if (!localStorage.getItem('bazarpro_favorites')) {
             localStorage.setItem('bazarpro_favorites', JSON.stringify([]));

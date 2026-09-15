@@ -13,7 +13,7 @@ const Ads = {
     renderCard(ad, currentUserId = null, isListView = false) {
         const userFavs = currentUserId ? DB.getFavorites(currentUserId) : [];
         const isFav = userFavs.includes(ad.id);
-        const photo = (ad.photos && ad.photos.length > 0) ? ad.photos[0] : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
+        const photo = (ad.photos && ad.photos.length > 0) ? ad.photos[0] : 'images/placeholder.jpg';
         const formattedPrice = Masks.formatPrice(ad.price, ad.priceNegotiable);
         const formattedDate = Masks.formatRelativeDate(ad.createdAt);
 
@@ -21,7 +21,7 @@ const Ads = {
             return `
             <div class="card-premium flex flex-col md:flex-row overflow-hidden hover-lift group relative" data-ad-id="${ad.id}">
                 <div class="relative w-full md:w-72 h-52 shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <img src="${photo}" alt="${ad.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                    <img src="${photo}" alt="${ad.title}" onerror="this.src='images/placeholder.jpg'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
                     ${ad.isVip ? `<span class="vip-badge absolute top-3 left-3 flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> VIP</span>` : ''}
                     <button onclick="event.stopPropagation(); Ads.toggleFavorite('${ad.id}')" class="fav-btn absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 rounded-full shadow-md text-slate-400 hover:text-rose-500 transition-colors ${isFav ? 'text-rose-500' : ''}">
                         <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}"></i>
@@ -54,7 +54,7 @@ const Ads = {
         return `
         <div class="card-premium flex flex-col overflow-hidden hover-lift group relative cursor-pointer" onclick="window.location.href='ad-details.html?id=${ad.id}'" data-ad-id="${ad.id}">
             <div class="relative w-full h-48 overflow-hidden bg-slate-100 dark:bg-slate-800">
-                <img src="${photo}" alt="${ad.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                <img src="${photo}" alt="${ad.title}" onerror="this.src='images/placeholder.jpg'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
                 ${ad.isVip ? `<span class="vip-badge absolute top-3 left-3 flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> VIP</span>` : ''}
                 <button onclick="event.stopPropagation(); Ads.toggleFavorite('${ad.id}')" class="fav-btn absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 rounded-full shadow-md text-slate-400 hover:text-rose-500 transition-colors ${isFav ? 'text-rose-500' : ''}">
                     <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}"></i>
@@ -105,7 +105,6 @@ const Ads = {
         const isAdded = DB.toggleFavorite(user.id, adId);
         App.showToast(isAdded ? 'Добавлено в избранное ❤️' : 'Удалено из избранного', isAdded ? 'success' : 'info');
 
-        // Обновляем иконки на странице
         document.querySelectorAll(`[data-ad-id="${adId}"] .fav-btn i`).forEach(icon => {
             if (isAdded) {
                 icon.classList.add('fill-rose-500', 'text-rose-500');
@@ -128,7 +127,7 @@ const Ads = {
         const modalEl = document.getElementById('quick-view-modal');
         if (!modalEl) return;
 
-        const photo = (ad.photos && ad.photos.length > 0) ? ad.photos[0] : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
+        const photo = (ad.photos && ad.photos.length > 0) ? ad.photos[0] : 'images/placeholder.jpg';
 
         modalEl.innerHTML = `
         <div class="modal-content relative p-6">
@@ -137,7 +136,7 @@ const Ads = {
             </button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                 <div class="rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 h-64">
-                    <img src="${photo}" class="w-full h-full object-cover" alt="${ad.title}">
+                    <img src="${photo}" onerror="this.src='images/placeholder.jpg'" class="w-full h-full object-cover" alt="${ad.title}">
                 </div>
                 <div class="flex flex-col justify-between">
                     <div>

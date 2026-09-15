@@ -126,7 +126,7 @@
             const currentUser = Auth.getCurrentUser();
             const userFavs = currentUser ? DB.getFavorites(currentUser.id) : [];
             const isFav = userFavs.includes(ad.id);
-            const photos = ad.photos && ad.photos.length > 0 ? ad.photos : ['https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'];
+            const photos = ad.photos && ad.photos.length > 0 ? ad.photos : ['images/placeholder.jpg'];
 
             const maskedPhone = ad.userPhone ? ad.userPhone.substring(0, 8) + ' •••-••-' + ad.userPhone.slice(-2) : '+7 (999) •••-••-00';
 
@@ -136,7 +136,7 @@
                 <!-- Галерея фото -->
                 <div class="card-premium p-4 space-y-4">
                     <div class="relative w-full h-[420px] rounded-2xl overflow-hidden bg-slate-900 flex items-center justify-center">
-                        <img id="main-ad-image" src="${photos[0]}" alt="${ad.title}" class="w-full h-full object-contain">
+                        <img id="main-ad-image" src="${photos[0]}" alt="${ad.title}" onerror="this.src='images/placeholder.jpg'" class="w-full h-full object-contain">
                         ${ad.isVip ? '<span class="vip-badge absolute top-4 left-4">VIP ПРЕДЛОЖЕНИЕ</span>' : ''}
                     </div>
 
@@ -144,7 +144,7 @@
                     <div class="flex items-center gap-3 overflow-x-auto pb-2">
                         ${photos.map((p, idx) => `
                             <button onclick="setMainImage('${p}', this)" class="thumbnail-btn w-20 h-20 rounded-xl overflow-hidden border-2 shrink-0 ${idx === 0 ? 'border-indigo-600' : 'border-transparent opacity-70 hover:opacity-100'} transition-all">
-                                <img src="${p}" class="w-full h-full object-cover">
+                                <img src="${p}" onerror="this.src='images/placeholder.jpg'" class="w-full h-full object-cover">
                             </button>
                         `).join('')}
                     </div>` : ''}
